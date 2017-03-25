@@ -335,7 +335,7 @@
         
           <h1 id="惯例：Hello-World"><a href="#惯例：Hello-World" class="headerlink" title="惯例：Hello World"></a>惯例：Hello World</h1><hr>
 <h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>测试系统：ubuntu16.04<br>当然还需要安装：nodejs，hexo，git<br>耗时：两天</p>
-<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><p>1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。<br>2.安装nodejs<br><code>sudo add-apt-repository ppa:chris-lea/node.js</code><br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br>3.安装git<br><code>sudo apt-get install git</code><br>4.安装hexo<br><code>sudo npm install hexo-cli -g</code></p>
+<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><p>1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。<br>2.安装nodejs<br><code>sudo add-apt-repository ppa:chris-lea/node.js</code><br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br>3.安装git<br><code>sudo apt-get install git</code><br>4.安装hexo<br><code>sudo npm install hexo-cli -g</code><br>当然除了hexo其他我原来都安装过了。</p>
 <h4 id="坑一"><a href="#坑一" class="headerlink" title="坑一"></a>坑一</h4><p>官网上的安装命令为:<code>npm install hexo-cli -g</code>,但是没有root权限会报错</p>
 <h4 id="坑二"><a href="#坑二" class="headerlink" title="坑二"></a>坑二</h4><p>我在安装好nodejs和npm后，安装hexo一直报错，我在经过了更改文件夹权限，重装nodejs等操作后还是无法成功安装，后来仔细看error，发现少了一个依赖包…<br>于是又 <code>sudo apt install nodejs-legacy</code>，安装成功。<br>前面的这些操作，包括阅读hexo的概念，理解整个搭建框架用了我一天时间,(其实睡了大半天<br>
           <!--noindex-->
