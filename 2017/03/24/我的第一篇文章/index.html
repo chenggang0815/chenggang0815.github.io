@@ -87,16 +87,22 @@
 
 
 
-<meta name="description" content="Hello World">
+<meta name="description" content="惯例：Hello World
+搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天
+搭建步骤第一天1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。2.安装nodejssudo add-apt-repository ppa:chris-lea/node.jssudo apt-get updatesudo apt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇文章">
+<meta property="og:title" content="记一下搭建过程中踩过的坑">
 <meta property="og:url" content="http://yoursite.com/2017/03/24/我的第一篇文章/index.html">
 <meta property="og:site_name" content="程刚|Cheng Gang">
-<meta property="og:description" content="Hello World">
-<meta property="og:updated_time" content="2017-03-24T16:15:07.743Z">
+<meta property="og:description" content="惯例：Hello World
+搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天
+搭建步骤第一天1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。2.安装nodejssudo add-apt-repository ppa:chris-lea/node.jssudo apt-get updatesudo apt">
+<meta property="og:updated_time" content="2017-03-25T14:00:47.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇文章">
-<meta name="twitter:description" content="Hello World">
+<meta name="twitter:title" content="记一下搭建过程中踩过的坑">
+<meta name="twitter:description" content="惯例：Hello World
+搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天
+搭建步骤第一天1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。2.安装nodejssudo add-apt-repository ppa:chris-lea/node.jssudo apt-get updatesudo apt">
 
 
 
@@ -130,7 +136,7 @@
 
 
 
-  <title> 我的第一篇文章 | 程刚|Cheng Gang </title>
+  <title> 记一下搭建过程中踩过的坑 | 程刚|Cheng Gang </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +286,7 @@
             
             
               
-                我的第一篇文章
+                记一下搭建过程中踩过的坑
               
             
           </h1>
@@ -331,7 +337,15 @@
       
 
       
-        <p>Hello World</p>
+        <h1 id="惯例：Hello-World"><a href="#惯例：Hello-World" class="headerlink" title="惯例：Hello World"></a>惯例：Hello World</h1><hr>
+<h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>测试系统：ubuntu16.04<br>当然还需要安装：nodejs，hexo，git<br>耗时：两天</p>
+<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><p>1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。<br>2.安装nodejs<br><code>sudo add-apt-repository ppa:chris-lea/node.js</code><br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br>3.安装git<br><code>sudo apt-get install git</code><br>4.安装hexo<br><code>sudo npm install hexo-cli -g</code></p>
+<h4 id="坑一"><a href="#坑一" class="headerlink" title="坑一"></a>坑一</h4><p>官网上的安装命令为:<code>npm install hexo-cli -g</code>,但是没有root权限会报错</p>
+<h4 id="坑二"><a href="#坑二" class="headerlink" title="坑二"></a>坑二</h4><p>我在安装好nodejs和npm后，安装hexo一直报错，我在经过了更改文件夹权限，重装nodejs等操作后还是无法成功安装，后来仔细看error，发现少了一个依赖包…<br>于是又 <code>sudo apt install nodejs-legacy</code>，于是安装成功。<br>前面的这些操作，包括阅读hexo的概念，理解整个搭建框架用了我一天时间,(其实睡了大半天<br><a id="more"></a></p>
+<h2 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h2><p>1.安装好hexo之后，熟悉了它的基本命令，开始搭建主题，菜单，社交链接等(都是一些小坑…<br>虽然还有很多包括分类等功能还没做好…<br>2.去万网上买了个域名，然后关联到github</p>
+<h4 id="坑三"><a href="#坑三" class="headerlink" title="坑三"></a>坑三</h4><p>由于每次测试都要输入github账号，密码，所以直接关联了ssh。关联过程中我找到的最靠谱的方法就是把_config.yml中的repo改为：<br><code>repo: git@github.com:chenggang0815/chenggang0815.github.io.git</code><br>一次性成功…</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>总结一下，虽然弄了两天，但除去中间睡觉和找同学聊人生理想的时间…应该是一天的工作量。虽然遇到了一些坑，但最后终于可以愉快的写东西了。<br>后续会边完善功能边写文章(主要是自己在工作上的一些学习和感悟)，希望自己不要忘记搭建博客的初心，可以持续输出高质量的东西。</p>
+<h2 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h2><p>我现在迫切需要复习一下markdown语法，感觉排版惨不忍睹..(逃</p>
 
       
     </div>
@@ -407,8 +421,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oncnk7jzw.bkt.clouddn.com/webwxgetmsgimg.jpeg"
@@ -481,6 +504,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#惯例：Hello-World"><span class="nav-number">1.</span> <span class="nav-text">惯例：Hello World</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建环境"><span class="nav-number">2.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建步骤"><span class="nav-number">3.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一天"><span class="nav-number">3.1.</span> <span class="nav-text">第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑一"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">坑一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑二"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">坑二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二天"><span class="nav-number">3.2.</span> <span class="nav-text">第二天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑三"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">坑三</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的最后"><span class="nav-number">4.1.</span> <span class="nav-text">最后的最后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
