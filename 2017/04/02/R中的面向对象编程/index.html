@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="R,面向对象编程," />
 
 
 
@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
+<meta name="description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一下搭建过程中踩过的坑">
-<meta property="og:url" content="http://yoursite.com/2017/03/24/我的第一篇文章/index.html">
+<meta property="og:title" content="R语言中的面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2017/04/02/R中的面向对象编程/index.html">
 <meta property="og:site_name" content="程刚|Cheng Gang">
-<meta property="og:description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
-<meta property="og:updated_time" content="2017-04-02T14:58:19.386Z">
+<meta property="og:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
+<meta property="og:updated_time" content="2017-04-02T14:56:21.041Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一下搭建过程中踩过的坑">
-<meta name="twitter:description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
+<meta name="twitter:title" content="R语言中的面向对象编程">
+<meta name="twitter:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/24/我的第一篇文章/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/02/R中的面向对象编程/"/>
 
 
 
 
 
-  <title> 记一下搭建过程中踩过的坑 | 程刚|Cheng Gang </title>
+  <title> R语言中的面向对象编程 | 程刚|Cheng Gang </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/24/我的第一篇文章/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/02/R中的面向对象编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="程刚">
@@ -280,7 +280,7 @@
             
             
               
-                记一下搭建过程中踩过的坑
+                R语言中的面向对象编程
               
             
           </h1>
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-24T20:39:49+08:00">
-                2017-03-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-02T22:50:55+08:00">
+                2017-04-02
               </time>
             
 
@@ -318,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">博客搭建</span>
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
                   </a>
                 </span>
 
@@ -353,15 +353,27 @@
       
 
       
-        <h1 id="惯例：Hello-World"><a href="#惯例：Hello-World" class="headerlink" title="惯例：Hello World"></a>惯例：Hello World</h1><h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>测试系统：ubuntu16.04<br>当然还需要安装：nodejs，hexo，git<br>耗时：两天<br><a id="more"></a></p>
-<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><p>1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。<br>2.安装nodejs<br><code>sudo add-apt-repository ppa:chris-lea/node.js</code><br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br>3.安装git<br><code>sudo apt-get install git</code><br>4.安装hexo<br><code>sudo npm install hexo-cli -g</code><br>当然除了hexo其他我原来都安装过了。</p>
-<h4 id="坑一"><a href="#坑一" class="headerlink" title="坑一"></a>坑一</h4><p>官网上的安装命令为:<code>npm install hexo-cli -g</code>,但是没有root权限会报错</p>
-<h4 id="坑二"><a href="#坑二" class="headerlink" title="坑二"></a>坑二</h4><p>我在安装好nodejs和npm后，安装hexo一直报错，我在经过了更改文件夹权限，重装nodejs等操作后还是无法成功安装，后来仔细看error，发现少了一个依赖包…<br>于是又 <code>sudo apt install nodejs-legacy</code>，安装成功。<br>前面的这些操作，包括阅读hexo的概念，理解整个搭建框架用了我一天时间,(其实睡了大半天</p>
-<h2 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h2><p>1.安装好hexo之后，熟悉了它的基本命令，开始搭建主题，菜单，社交链接等(都是一些小坑…<br>虽然还有很多包括分类等功能还没做好…<br>2.去万网上买了个域名，然后关联到github</p>
-<h4 id="坑三"><a href="#坑三" class="headerlink" title="坑三"></a>坑三</h4><p>由于每次测试都要输入github账号，密码，所以直接关联了ssh。关联过程中我找到的最靠谱的方法就是把_config.yml中的repo改为：<br><code>repo: git@github.com:chenggang0815/chenggang0815.github.io.git</code><br>一次性成功…</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>总结一下，虽然弄了两天，但除去中间睡觉和找同学聊人生理想的时间…应该是一天的工作量。虽然遇到了一些坑，但最后终于可以愉快的写东西了。<br>后续会边完善功能边写文章(主要是自己在工作上的一些学习和感悟)，希望自己不要忘记搭建博客的初心，可以持续输出高质量的东西。</p>
-<h2 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h2><p>我现在迫切需要复习一下markdown语法，感觉排版惨不忍睹..(逃</p>
-
+        <p>  我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。<br>  <a id="more"></a></p>
+<h2 id="s3类"><a href="#s3类" class="headerlink" title="s3类"></a>s3类</h2><p>  事实上，大多数R中内置的类都是S3类。一个S3类包含一个列表，再附加一个类名属性和调度的功能。而后者为R中泛型函数的使用提供了基础。而S4类是后来为了增加安全性才开发出来的。<br>R中的多态是指同一个函数可以针对不同的类调用不同的操作。例如plot函数，对许多不同的数据类型的对象，画出的图类型也不同。还有很多函数，如summary和print函数都是如此。<br>S3类中，一个类的实例是通过构建一个列表的方式来创建的，这个列表的组件是该类的成员变量。类的属性通过attr()或者class()函数手动设置，然后再定义各种泛型函数的实现方法。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>输入以下代码，构建一个’student’类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">test_class &lt;- list(name=&apos;程刚&apos;,age=&apos;22&apos;,sex =&apos;male&apos;)</div><div class="line">class(test_class) &lt;-  &apos;student&apos;</div><div class="line">attributes(test_class)</div></pre></td></tr></table></figure></p>
+<p>以下是输出结果：</p>
+<blockquote>
+<p>$names<br>[1] “name” “age”  “sex” </p>
+<p>$class<br>[1] “student”</p>
+</blockquote>
+<p>我们可以试试看如果调用默认的print函数会发生什么</p>
+<blockquote>
+<p>test_class<br>$name<br>[1] “程刚”</p>
+<p>$age<br>[1] “22”</p>
+<p>$sex<br>[1] “male”</p>
+</blockquote>
+<p>可以发现test_class在被打印时会被当作一个列表，现在我们可以编写自己的打印方法：<br><figure class="highlight plain"><figcaption><span>test_class</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">my name is 程刚 </div><div class="line">age: 22 </div><div class="line">sex: male </div><div class="line">print.student &lt;- function(student)&#123;</div><div class="line">  cat(&apos;my name is&apos;,student$name,&apos;\n&apos;)</div><div class="line">  cat(&apos;age:&apos;,student$age,&apos;\n&apos;)</div><div class="line">  cat(&apos;sex:&apos;,student$sex,&apos;\n&apos;)</div><div class="line">&#125;</div><div class="line">test_class</div></pre></td></tr></table></figure></p>
+<p>返回结果如下：</p>
+<blockquote>
+<p>my name is 程刚<br>age: 22<br>sex: male </p>
+</blockquote>
+<p>可以发现在对’student’类的对象调用print时，print现在会定向到print.student()。</p>
+<h2 id="使用继承"><a href="#使用继承" class="headerlink" title="使用继承"></a>使用继承</h2>
       
     </div>
 
@@ -390,7 +402,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/面向对象编程/" rel="tag"># 面向对象编程</a>
           
         </div>
       
@@ -403,15 +417,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/03/24/我的第一篇文章/" rel="next" title="记一下搭建过程中踩过的坑">
+                <i class="fa fa-chevron-left"></i> 记一下搭建过程中踩过的坑
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/02/R中的面向对象编程/" rel="prev" title="R语言中的面向对象编程">
-                R语言中的面向对象编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#惯例：Hello-World"><span class="nav-number">1.</span> <span class="nav-text">惯例：Hello World</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建环境"><span class="nav-number">2.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建步骤"><span class="nav-number">3.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一天"><span class="nav-number">3.1.</span> <span class="nav-text">第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑一"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">坑一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑二"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">坑二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二天"><span class="nav-number">3.2.</span> <span class="nav-text">第二天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑三"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">坑三</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的最后"><span class="nav-number">4.1.</span> <span class="nav-text">最后的最后</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#s3类"><span class="nav-number">1.</span> <span class="nav-text">s3类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用继承"><span class="nav-number">3.</span> <span class="nav-text">使用继承</span></a></li></ol></div>
             
 
           </div>
