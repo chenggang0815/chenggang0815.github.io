@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/02/R中的面向对象编程/index.html">
 <meta property="og:site_name" content="程刚|Cheng Gang">
 <meta property="og:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
-<meta property="og:updated_time" content="2017-04-02T14:56:21.041Z">
+<meta property="og:updated_time" content="2017-04-02T15:02:59.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言中的面向对象编程">
 <meta name="twitter:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
@@ -367,7 +367,7 @@
 <p>$age<br>[1] “22”</p>
 <p>$sex<br>[1] “male”</p>
 </blockquote>
-<p>可以发现test_class在被打印时会被当作一个列表，现在我们可以编写自己的打印方法：<br><figure class="highlight plain"><figcaption><span>test_class</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">my name is 程刚 </div><div class="line">age: 22 </div><div class="line">sex: male </div><div class="line">print.student &lt;- function(student)&#123;</div><div class="line">  cat(&apos;my name is&apos;,student$name,&apos;\n&apos;)</div><div class="line">  cat(&apos;age:&apos;,student$age,&apos;\n&apos;)</div><div class="line">  cat(&apos;sex:&apos;,student$sex,&apos;\n&apos;)</div><div class="line">&#125;</div><div class="line">test_class</div></pre></td></tr></table></figure></p>
+<p>可以发现test_class在被打印时会被当作一个列表，现在我们可以编写自己的打印方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">print.student &lt;- function(student)&#123;</div><div class="line">  cat(&apos;my name is&apos;,student$name,&apos;\n&apos;)</div><div class="line">  cat(&apos;age:&apos;,student$age,&apos;\n&apos;)</div><div class="line">  cat(&apos;sex:&apos;,student$sex,&apos;\n&apos;)</div><div class="line">&#125;</div><div class="line">&gt;test_class</div></pre></td></tr></table></figure></p>
 <p>返回结果如下：</p>
 <blockquote>
 <p>my name is 程刚<br>age: 22<br>sex: male </p>
