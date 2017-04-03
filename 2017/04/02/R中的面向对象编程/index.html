@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/02/R中的面向对象编程/index.html">
 <meta property="og:site_name" content="程刚|Cheng Gang">
 <meta property="og:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
-<meta property="og:updated_time" content="2017-04-02T15:02:59.140Z">
+<meta property="og:updated_time" content="2017-04-03T14:19:35.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言中的面向对象编程">
 <meta name="twitter:description" content="我们都知道面向对象的三大特性：封装，继承，多态。虽然R语言和我们熟悉的面向对象的语言（如c++，java，python）不同，但是R其实也是一个面向对象的语言。只是由于为了降低R的初始学习难度，所以开发者将很多函数都封装起来便于初学者使用。">
@@ -373,7 +373,42 @@
 <p>my name is 程刚<br>age: 22<br>sex: male </p>
 </blockquote>
 <p>可以发现在对’student’类的对象调用print时，print现在会定向到print.student()。</p>
-<h2 id="使用继承"><a href="#使用继承" class="headerlink" title="使用继承"></a>使用继承</h2>
+<h2 id="使用继承"><a href="#使用继承" class="headerlink" title="使用继承"></a>使用继承</h2><p>继承的思想是在已有类的基础上创建新的类。例如，创建新类’college_student’作为’student’的子类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">college_class &lt;- list(name=&apos;will&apos;,age=&apos;22&apos;,sex=&apos;male&apos;,grade=&apos;senior&apos;)</div><div class="line">class(college_class) &lt;- c(&apos;college_student&apos;,&apos;student&apos;)</div><div class="line">college_class</div></pre></td></tr></table></figure></p>
+<p>新的类多了一个变量：grade。新类的名称包含两个字符串，分别代表新类和旧类。<br>打印college_class将会输出以下内容：</p>
+<blockquote>
+<p>my name is will<br>age: 22<br>sex: male</p>
+</blockquote>
+<p>由继承的目的性能够知道，打印college_class将会调用print()函数，R会去查找college_student类的打印方法，这是因为college_student是college_class的两个类名中的第一个，当没有找到其对应的方法时，R会尝试查找另一个类student的打印方法。</p>
+<h2 id="S4类"><a href="#S4类" class="headerlink" title="S4类"></a>S4类</h2><p>一些R开发者认为s3类不具有面向对象编程固有的安全性。例如，’student’类中有三个字段：name，age，sex。下面是一些常见的错误：<br>1忘记输入age的值<br>2将sex错拼为sax<br>等等，以上这些错误R都不会自动提醒。而S4类的目标是产生自动提醒从而避免这些错误的发生。<br>R中使用setClass()来定义一个S4类。现在来定义一个新的’person’类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">setClass(&apos;person&apos;,</div><div class="line">         representation(name=&apos;character&apos;,</div><div class="line">                        salary=&apos;numeric&apos;,</div><div class="line">                        union=&apos;logical&apos;)</div><div class="line">         )</div><div class="line">joe &lt;- new(&apos;person&apos;,name=&apos;will&apos;,salary=50000,union=T)</div><div class="line">joe</div></pre></td></tr></table></figure></p>
+<p>能够看到定义的新类中有三个成员变量，而且每个变量都有明确的类型。然后使用new()函数为这个类创建一个实例，joe。<br>打印joe后能够得到以下结果：</p>
+<blockquote>
+<p>joe<br>An object of class “person”<br>Slot “name”:<br>[1] “will”</p>
+<p>Slot “salary”:<br>[1] 50000</p>
+<p>Slot “union”:<br>[1] TRUE</p>
+</blockquote>
+<p>需要注意的是，此处成员变量称为slot，通过@符号引用。例如：<br><code>&gt;joe@salary</code><br>打印结果为：</p>
+<blockquote>
+<p>[1]50000</p>
+</blockquote>
+<p>同时也可以使用slot()函数来查看，<br><code>&gt;slot(joe,&#39;salary&#39;)</code><br>打印结果为：</p>
+<blockquote>
+<p>[1]50000</p>
+</blockquote>
+<p>用类似的方法也可以给成员变量复制，例如:<br><code>joe@salary &lt;- 65000</code></p>
+<p>为了显示S4类的安全性，我们来测试一下如果输入错误的信息会发生什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">will &lt;- new(&apos;person&apos;,name=&apos;will&apos;,salary=&apos;50000&apos;,union=T)</div></pre></td></tr></table></figure></p>
+<p>打印结果为：</p>
+<blockquote>
+<p>Error in validObject(.Object) :<br>  类别为“person”的对象不对: invalid object for slot “salary” in class “person”: got class “character”, should be or extend class “numeric”</p>
+</blockquote>
+<p>  由此能够看到S4类相比S3类更具有安全性。S3类的对象不会有任何报错信息，因为S3类仅仅是列表，所以能够添加新的组件，不管你是有意还是无意的。</p>
+<h2 id="在S4类上实现泛型函数"><a href="#在S4类上实现泛型函数" class="headerlink" title="在S4类上实现泛型函数"></a>在S4类上实现泛型函数</h2><p>在S4类上定义泛型函数需要使用setMethod()函数。用以上的person类举例，我们在其中实现show()函数，show()在S4类中的功能与S3类中的print()函数类似。就像你输入show(joe)与直接键入joe效果一样。不过我们将show()函数改写一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">setMethod(&apos;show&apos;,&apos;person&apos;,</div><div class="line">          function(object)&#123;</div><div class="line">            inorout &lt;- ifelse(object@union,&apos;is&apos;,&apos;is not&apos;)</div><div class="line">            cat(object@name,&apos;has a salary of&apos;,object@salary,</div><div class="line">                &apos;and&apos;,inorout,&apos;in the union&apos;, &apos;\n&apos;)</div><div class="line">          &#125;  )</div></pre></td></tr></table></figure></p>
+<p>第一个参数设定将要定义给定类的泛型函数名，第二个参数则设定了类的名称。<br>现在将joe打印出来，得到以下结果：</p>
+<blockquote>
+<p>joe<br>will has a salary of 50000 and is in the union </p>
+</blockquote>
+<h2 id="S3类和S4类的对比"><a href="#S3类和S4类的对比" class="headerlink" title="S3类和S4类的对比"></a>S3类和S4类的对比</h2><p>  该使用哪种类一直是R语言程序员争论的主题，从本质上讲，这取决于你更看重S3的便捷性还是S4类的安全性。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>《r语言编程艺术》第9章  </p>
+
       
     </div>
 
@@ -583,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#s3类"><span class="nav-number">1.</span> <span class="nav-text">s3类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用继承"><span class="nav-number">3.</span> <span class="nav-text">使用继承</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#s3类"><span class="nav-number">1.</span> <span class="nav-text">s3类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用继承"><span class="nav-number">3.</span> <span class="nav-text">使用继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#S4类"><span class="nav-number">4.</span> <span class="nav-text">S4类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在S4类上实现泛型函数"><span class="nav-number">5.</span> <span class="nav-text">在S4类上实现泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#S3类和S4类的对比"><span class="nav-number">6.</span> <span class="nav-text">S3类和S4类的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.1.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
             
 
           </div>
