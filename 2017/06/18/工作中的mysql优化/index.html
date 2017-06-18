@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="MYSQL," />
 
 
 
@@ -87,16 +87,18 @@
 
 
 
-<meta name="description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
+<meta name="description" content="最近悟出了一个道理，那就是mysql的运行效率与我的加班时长反相关，还是相关系数很大的那种。于是琢磨着应该好好学习mysql优化(主要指查询优化)，毕竟不能一跑不出来就找DBA，我们还是要靠个人奋斗的…">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一下搭建过程中踩过的坑">
-<meta property="og:url" content="http://yoursite.com/2017/03/24/我的第一篇文章/index.html">
+<meta property="og:title" content="工作中的mysql优化">
+<meta property="og:url" content="http://yoursite.com/2017/06/18/工作中的mysql优化/index.html">
 <meta property="og:site_name" content="Cheng Gang’s Notes">
-<meta property="og:description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
-<meta property="og:updated_time" content="2017-04-02T14:58:19.386Z">
+<meta property="og:description" content="最近悟出了一个道理，那就是mysql的运行效率与我的加班时长反相关，还是相关系数很大的那种。于是琢磨着应该好好学习mysql优化(主要指查询优化)，毕竟不能一跑不出来就找DBA，我们还是要靠个人奋斗的…">
+<meta property="og:image" content="http://oncnk7jzw.bkt.clouddn.com/background.jpeg">
+<meta property="og:updated_time" content="2017-06-18T08:51:39.113Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一下搭建过程中踩过的坑">
-<meta name="twitter:description" content="惯例：Hello World搭建环境测试系统：ubuntu16.04当然还需要安装：nodejs，hexo，git耗时：两天">
+<meta name="twitter:title" content="工作中的mysql优化">
+<meta name="twitter:description" content="最近悟出了一个道理，那就是mysql的运行效率与我的加班时长反相关，还是相关系数很大的那种。于是琢磨着应该好好学习mysql优化(主要指查询优化)，毕竟不能一跑不出来就找DBA，我们还是要靠个人奋斗的…">
+<meta name="twitter:image" content="http://oncnk7jzw.bkt.clouddn.com/background.jpeg">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/24/我的第一篇文章/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/18/工作中的mysql优化/"/>
 
 
 
 
 
-  <title> 记一下搭建过程中踩过的坑 | Cheng Gang’s Notes </title>
+  <title> 工作中的mysql优化 | Cheng Gang’s Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/24/我的第一篇文章/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/18/工作中的mysql优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="程刚">
@@ -280,7 +282,7 @@
             
             
               
-                记一下搭建过程中踩过的坑
+                工作中的mysql优化
               
             
           </h1>
@@ -295,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-24T20:39:49+08:00">
-                2017-03-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T15:18:22+08:00">
+                2017-06-18
               </time>
             
 
@@ -318,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">博客搭建</span>
+                  <a href="/categories/MYSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MYSQL</span>
                   </a>
                 </span>
 
@@ -353,14 +355,27 @@
       
 
       
-        <h1 id="惯例：Hello-World"><a href="#惯例：Hello-World" class="headerlink" title="惯例：Hello World"></a>惯例：Hello World</h1><h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>测试系统：ubuntu16.04<br>当然还需要安装：nodejs，hexo，git<br>耗时：两天<br><a id="more"></a></p>
-<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><p>1.首先在github上新建一个repository，具体细节没什么好说的，网上的教程有很多。<br>2.安装nodejs<br><code>sudo add-apt-repository ppa:chris-lea/node.js</code><br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br>3.安装git<br><code>sudo apt-get install git</code><br>4.安装hexo<br><code>sudo npm install hexo-cli -g</code><br>当然除了hexo其他我原来都安装过了。</p>
-<h4 id="坑一"><a href="#坑一" class="headerlink" title="坑一"></a>坑一</h4><p>官网上的安装命令为:<code>npm install hexo-cli -g</code>,但是没有root权限会报错</p>
-<h4 id="坑二"><a href="#坑二" class="headerlink" title="坑二"></a>坑二</h4><p>我在安装好nodejs和npm后，安装hexo一直报错，我在经过了更改文件夹权限，重装nodejs等操作后还是无法成功安装，后来仔细看error，发现少了一个依赖包…<br>于是又 <code>sudo apt install nodejs-legacy</code>，安装成功。<br>前面的这些操作，包括阅读hexo的概念，理解整个搭建框架用了我一天时间,(其实睡了大半天</p>
-<h2 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h2><p>1.安装好hexo之后，熟悉了它的基本命令，开始搭建主题，菜单，社交链接等(都是一些小坑…<br>虽然还有很多包括分类等功能还没做好…<br>2.去万网上买了个域名，然后关联到github</p>
-<h4 id="坑三"><a href="#坑三" class="headerlink" title="坑三"></a>坑三</h4><p>由于每次测试都要输入github账号，密码，所以直接关联了ssh。关联过程中我找到的最靠谱的方法就是把_config.yml中的repo改为：<br><code>repo: git@github.com:chenggang0815/chenggang0815.github.io.git</code><br>一次性成功…</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>总结一下，虽然弄了两天，但除去中间睡觉和找同学聊人生理想的时间…应该是一天的工作量。虽然遇到了一些坑，但最后终于可以愉快的写东西了。<br>后续会边完善功能边写文章(主要是自己在工作上的一些学习和感悟)，希望自己不要忘记搭建博客的初心，可以持续输出高质量的东西。</p>
-<h2 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h2><p>我现在迫切需要复习一下markdown语法，感觉排版惨不忍睹..(逃</p>
+        <p>最近悟出了一个道理，那就是mysql的运行效率与我的加班时长反相关，还是相关系数很大的那种。于是琢磨着应该好好学习mysql优化(主要指查询优化)，毕竟不能一跑不出来就找DBA，我们还是要靠个人奋斗的…<br><img src="http://oncnk7jzw.bkt.clouddn.com/background.jpeg" alt=""><br><a id="more"></a></p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p>1.对查询字段进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。<br>2.应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。<br>3.应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select id from t where num=10 or num=20;</div></pre></td></tr></table></figure></p>
+<p>可以这样查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select id from t where num=10</div><div class="line">union all</div><div class="line">select id from t where num=20 ;</div></pre></td></tr></table></figure></p>
+<p>4.在用like进行模糊匹配时，应尽量避免向前匹配，否则索引失效。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select id from t where name like &apos;%abc%&apos; ;</div></pre></td></tr></table></figure></p>
+<p>和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select id from t where name like &apos;%abc&apos;;</div></pre></td></tr></table></figure></p>
+<p>会使索引失效。<br>5.in 和 not in 也要慎用，否则会导致全表扫描(对于连续的数值，能用 between 就不要用 in 了)。<br>6.应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。<br>7.应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。<br>8.在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。<br>9.尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。<br>10.尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
+<h2 id="正确建立索引"><a href="#正确建立索引" class="headerlink" title="正确建立索引"></a>正确建立索引</h2><h3 id="建立索引的原则"><a href="#建立索引的原则" class="headerlink" title="建立索引的原则"></a>建立索引的原则</h3><p>用于索引的最好的备选数据列是那些出现在WHERE子句、join子句、ORDER BY或GROUP BY子句中的列。仅仅出现在SELECT关键字后面的输出数据列列表中的数据列不是很好的备选列。</p>
+<h3 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h3><p>假设你在表的state、city和zip数据列上建立了复合索引。索引中的数据行按照state/city/zip次序排列，因此它们也会自动地按照state/city和state次序排列。这意味着，即使你在查询中只指定了state值，或者指定state和city值，MySQL也可以使用这个索引。因此，这个索引可以被用于搜索如下所示的数据列组合：<br>state, city, zip<br>state, city<br>state</p>
+<h3 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h3><p>MySQL不能利用这个索引来搜索没有包含在最左前缀的内容。例如，如果你按照city或zip来搜索，就不会使用到这个索引。</p>
+<h3 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h3><p>实例：现在我们想查出满足以下条件的用户id：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select  uid from  people where lname = &apos;Liu&apos;  and  fname =&apos;Zhiqun&apos;   AND age =26;</div></pre></td></tr></table></figure></p>
+<p>因为我们不想扫描整表，故考虑用索引。<br><strong>单列索引：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table people add index lname (lname);</div></pre></td></tr></table></figure></p>
+<p>将lname列建索引，这样就把范围限制在lname=Liu的结果集1上，之后扫描结果集1，产生满足fname=Zhiqun的结果集2，再扫描结果集2，找到 age=26的结果集3，即最终结果。</p>
+<p>由于建立了lname列的索引，与执行表的完全扫描相比，效率提高了很多，但我们要求扫描的记录数量仍旧远远超过了实际所需 要的。虽然我们可以删除lname列上的索引，再创建fname或者age 列的索引，但是，不论在哪个列上创建索引搜索效率仍旧相似。<br><strong>多列索引：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE people ADD INDEX lname_fname_age (lame,fname,age);</div></pre></td></tr></table></figure></p>
+<p>为了提高搜索效率，我们需要考虑运用多列索引,由于索引文件以B－Tree格式保存，所以我们不用扫描任何记录，即可得到最终结果。</p>
+<p><strong>注：</strong>在mysql中执行查询时，只能使用一个索引，如果我们在lname,fname,age上分别建索引,执行查询时，只能使用一个索引，mysql会选择一个最严格(获得结果集记录数最少)的索引。<br><strong>注：</strong>在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><p><a href="http://blog.csdn.net/zhanglu0223/article/details/8713149#0-tsina-1-60696-397232819ff9a47a7b7e80a40613cfe1" target="_blank" rel="external">正确建立索引以及最左前缀原则</a></p>
+</li>
+<li><p><a href="http://www.jb51.net/article/39221.htm" target="_blank" rel="external">浅谈MySQL中优化sql语句查询常用的30种方法</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -390,7 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/MYSQL/" rel="tag"># MYSQL</a>
           
         </div>
       
@@ -403,15 +418,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/06/04/近期的学习计划/" rel="next" title="近期的学习计划">
+                <i class="fa fa-chevron-left"></i> 近期的学习计划
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/02/R中的面向对象编程/" rel="prev" title="R语言中的面向对象编程">
-                R语言中的面向对象编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#惯例：Hello-World"><span class="nav-number">1.</span> <span class="nav-text">惯例：Hello World</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建环境"><span class="nav-number">2.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建步骤"><span class="nav-number">3.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一天"><span class="nav-number">3.1.</span> <span class="nav-text">第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑一"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">坑一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑二"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">坑二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二天"><span class="nav-number">3.2.</span> <span class="nav-text">第二天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑三"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">坑三</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的最后"><span class="nav-number">4.1.</span> <span class="nav-text">最后的最后</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Notes"><span class="nav-number">1.</span> <span class="nav-text">Notes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确建立索引"><span class="nav-number">2.</span> <span class="nav-text">正确建立索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立索引的原则"><span class="nav-number">2.1.</span> <span class="nav-text">建立索引的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">2.2.</span> <span class="nav-text">复合索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最左前缀原则"><span class="nav-number">2.3.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例分析"><span class="nav-number">2.4.</span> <span class="nav-text">实例分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">2.5.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
             
 
           </div>
