@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="MYSQL," />
 
 
 
@@ -87,15 +87,16 @@
 
 
 
-<meta name="description" content="壮士断腕">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Cheng Gang’s Notes">
-<meta property="og:url" content="http://yoursite.com/tags/hexo/index.html">
+<meta name="description" content="上周总结了工作中的一些mysql优化技巧，却忘记了非常重要的一点，那就是EXPLAIN解释命令，个人认为是查询优化中分析索引使用的神器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql之EXPLAIN详解">
+<meta property="og:url" content="http://yoursite.com/2017/06/25/mysql之EXPLAIN详解/index.html">
 <meta property="og:site_name" content="Cheng Gang’s Notes">
-<meta property="og:description" content="壮士断腕">
+<meta property="og:description" content="上周总结了工作中的一些mysql优化技巧，却忘记了非常重要的一点，那就是EXPLAIN解释命令，个人认为是查询优化中分析索引使用的神器。">
+<meta property="og:updated_time" content="2017-06-25T10:20:14.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cheng Gang’s Notes">
-<meta name="twitter:description" content="壮士断腕">
+<meta name="twitter:title" content="mysql之EXPLAIN详解">
+<meta name="twitter:description" content="上周总结了工作中的一些mysql优化技巧，却忘记了非常重要的一点，那就是EXPLAIN解释命令，个人认为是查询优化中分析索引使用的神器。">
 
 
 
@@ -123,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/hexo/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/25/mysql之EXPLAIN详解/"/>
 
 
 
 
 
-  <title> 标签: hexo | Cheng Gang’s Notes </title>
+  <title> mysql之EXPLAIN详解 | Cheng Gang’s Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,46 +249,183 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        hexo
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/mysql之EXPLAIN详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程刚">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oncnk7jzw.bkt.clouddn.com/webwxgetmsgimg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cheng Gang’s Notes">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql之EXPLAIN详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T16:14:13+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MYSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MYSQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>上周总结了工作中的一些mysql优化技巧，却忘记了非常重要的一点，那就是EXPLAIN解释命令，个人认为是查询优化中分析索引使用的神器。<br><a id="more"></a></p>
+<h2 id="MYSQL查询优化器是如何工作的"><a href="#MYSQL查询优化器是如何工作的" class="headerlink" title="MYSQL查询优化器是如何工作的"></a>MYSQL查询优化器是如何工作的</h2><p>MySQL 查询优化器有几个目标,但是其中最主要的目标是尽可能地使用索引,并且使用最严格的索引来消除尽可能多的数据行。最终目标是提交 SELECT 语句查找数据行,而不是排除数据行。优化器试图排除数据行的原因在于它排除数据行的速度越快,那么找到与条件匹配的数据行也就越快。如果能够首先进行最严格的测试,查询就可以执行地更快</p>
+<h2 id="EXPLAIN"><a href="#EXPLAIN" class="headerlink" title="EXPLAIN"></a>EXPLAIN</h2><p>通常将explain命令放在需要优化的语句前面，而explain字段返回的则是以下内容。<br>1.id 选定的执行计划中查询的序列号。表示查询中执行 select 子句或操作表的顺序,id 值越大优先级越高,越先被执行。id 相同,执行顺序由上至下。<br>2.select_type 查询类型。<br>3.table  表名<br>4.type 最重要的项，显示表连接的类型 。从最好到最差分别为：const，eq_reg，reg，range，index，all。<br>5.possible_keys 显示可能应用在这张表中的索引。如果为空，没有可能的索引。<br>6.key 实际使用的索引。如果为NULL，则没有使用索引。<br>7.key_len 使用的索引的长度。在不损失精确性的情况下，长度越短越好。<br>8.ref 显示索引的哪一列被使用了，如果可能的话，是一个常数 。<br>9.rows MYSQL认为必须检查的用来返回请求数据的行数<br>10.extra 关于MYSQL如何解析查询的额外信息。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.jb51.net/article/38357.htm" target="_blank" rel="external">MySQL查询优化之explain的深入解析</a></li>
+</ul>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/03/24/我的第一篇文章/" itemprop="url">
-              
-                <span itemprop="name">记一下搭建过程中踩过的坑</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-24T20:39:49+08:00"
-              content="2017-03-24" >
-          03-24
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MYSQL/" rel="tag"># MYSQL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/18/工作中的mysql优化/" rel="next" title="工作中的mysql优化">
+                <i class="fa fa-chevron-left"></i> 工作中的mysql优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -295,6 +433,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -314,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oncnk7jzw.bkt.clouddn.com/webwxgetmsgimg.jpeg"
@@ -406,6 +557,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MYSQL查询优化器是如何工作的"><span class="nav-number">1.</span> <span class="nav-text">MYSQL查询优化器是如何工作的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXPLAIN"><span class="nav-number">2.</span> <span class="nav-text">EXPLAIN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -522,6 +689,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
