@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="最近又没更博客的原因是因为想搞个大新闻。最近偶然看到了一篇很总结很详细的Ｒ语言中文本处理与正则表达式的文章．总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录．毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了．用的时候再去查．">
+<meta name="description" content="最近又没更博客的原因是因为想搞个大新闻…不过偶然看到了一篇很总结地很详细的Ｒ语言中文本处理的文章。总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录。毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了。用的时候再去查。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="R语言中的文本处理与正则表达式">
 <meta property="og:url" content="http://yoursite.com/2017/07/12/R语言中的文本处理与正则表达式/index.html">
 <meta property="og:site_name" content="Cheng Gang’s Notes">
-<meta property="og:description" content="最近又没更博客的原因是因为想搞个大新闻。最近偶然看到了一篇很总结很详细的Ｒ语言中文本处理与正则表达式的文章．总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录．毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了．用的时候再去查．">
+<meta property="og:description" content="最近又没更博客的原因是因为想搞个大新闻…不过偶然看到了一篇很总结地很详细的Ｒ语言中文本处理的文章。总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录。毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了。用的时候再去查。">
 <meta property="og:image" content="http://or0zpjxns.bkt.clouddn.com/14175011372921.jpg">
-<meta property="og:updated_time" content="2017-07-12T13:58:31.700Z">
+<meta property="og:updated_time" content="2017-07-12T14:11:27.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言中的文本处理与正则表达式">
-<meta name="twitter:description" content="最近又没更博客的原因是因为想搞个大新闻。最近偶然看到了一篇很总结很详细的Ｒ语言中文本处理与正则表达式的文章．总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录．毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了．用的时候再去查．">
+<meta name="twitter:description" content="最近又没更博客的原因是因为想搞个大新闻…不过偶然看到了一篇很总结地很详细的Ｒ语言中文本处理的文章。总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录。毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了。用的时候再去查。">
 <meta name="twitter:image" content="http://or0zpjxns.bkt.clouddn.com/14175011372921.jpg">
 
 
@@ -355,17 +355,10 @@
       
 
       
-        <p>最近又没更博客的原因是因为想搞个大新闻。<br>最近偶然看到了一篇很总结很详细的Ｒ语言中文本处理与正则表达式的文章．总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录．毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了．用的时候再去查．<br><img src="http://or0zpjxns.bkt.clouddn.com/14175011372921.jpg" alt=""><br>  <a id="more"></a></p>
-<h2 id="R中的文本处理"><a href="#R中的文本处理" class="headerlink" title="R中的文本处理"></a>R中的文本处理</h2><p>Ｒ语言的文本处理虽然不像python这些语言这么强，不过也够用了．而文本操作其实在我们的工作的非常常见．我认为每个数据分析师都应该掌握基本的文本处理能力．</p>
-<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>  正则表达式是用于描述或者匹配一个文本集合的表达式．<br>  １．所有英文字母、数字和很多可显示的字符本身就是正则表达式，用于匹配它们自己。比如 ＇ａ＇ 就是匹配字母 ＇ａ＇的正则表达式<br>  ２． 一些特殊的字符在正则表达式中不在用来描述它自身，它们在正则表达式中已经被“转义”，这些字符称为“元字符”．perl类型的正则表达式中被转义的字符有：. \ | ( ) [ ] { } ^ $ * + ?．被转义的字符已经有特殊的意义，如点号 . 表示任意字符；方括号表示选择方括号中的任意一个（如[a-z] 表示任意一个小写字符）；^ 放在表达式开始出表示匹配文本开始位置，放在方括号内开始处表示非方括号内的任一字符；大括号表示前面的字符或表达式的重复次数；| 表示可选项，即 | 前后的表达式任选一个。</p>
-<ol>
-<li>如果要在正则表达式中表示元字符本身，比如我就要在文本中查找问号‘?’， 那么就要使用引用符号（或称换码符号），一般是反斜杠 ‘\\’。需要注意的是，在R语言中得用两个反斜杠即 ‘\\’，如要匹配括号就要写成 ’\\(\\)‘</li>
-<li>不同语言或应用程序（事实上很多规则都通用）定义了一些特殊的元字符用于表示某类字符，如 \d 表示数字0-9， \D 表示非数字，\s 表示空白字符（包括空格、制表符、换行符等），\S 表示非空白字符，\w 表示字（字母和数字），\W 表示非字，\&lt; 和 > 分别表示以空白字符开始和结束的文本。<ol>
-<li>正则表达式符号运算顺序：圆括号括起来的表达式最优先，然后是表示重复次数的操作（即：* + {} ），接下来是连接运算（其实就是几个字符放在一起，如abc），最后是表示可选项的运算（|）<h2 id="字符数统计和字符翻译"><a href="#字符数统计和字符翻译" class="headerlink" title="字符数统计和字符翻译"></a>字符数统计和字符翻译</h2>nchar这个函数简单，统计向量中每个元素的字符个数，注意这个函数和length函数的差别：nchar是向量元素的字符个数，而length是向量长度（向量元素的个数)<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; x &lt;- c(&quot;Hellow&quot;, &quot;World&quot;, &quot;!&quot;) </div><div class="line">&gt; nchar(x) </div><div class="line">[1] 6 5 1 </div><div class="line">&gt; length(&apos;&apos;); nchar(&apos;&apos;) </div><div class="line">[1] 1 </div><div class="line">[1] 0</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
+        <p>最近又没更博客的原因是因为想搞个大新闻…不过偶然看到了一篇很总结地很详细的Ｒ语言中文本处理的文章。总觉得收藏了还不够，于是忍不住手痒想要写篇文章专门来记录。毕竟文本处理还是很重要的！说起正则表达式这个东西…真的是学一边忘一边，只能说记住常用的几个符号就好了。用的时候再去查。<br><img src="http://or0zpjxns.bkt.clouddn.com/14175011372921.jpg" alt=""><br>  <a id="more"></a></p>
+<h2 id="R中的文本处理"><a href="#R中的文本处理" class="headerlink" title="R中的文本处理"></a>R中的文本处理</h2><p>Ｒ语言的文本处理虽然不像python这些语言这么强，不过也够用了．而文本操作其实在我们的工作中非常常见．我认为每个数据分析师都应该掌握基本的文本处理能力．</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>  正则表达式是用于描述或者匹配一个文本集合的表达式．<br>  １．所有英文字母、数字和很多可显示的字符本身就是正则表达式，用于匹配它们自己。比如 ＇ａ＇ 就是匹配字母 ＇ａ＇的正则表达式<br>  ２． 一些特殊的字符在正则表达式中不在用来描述它自身，它们在正则表达式中已经被“转义”，这些字符称为“元字符”．perl类型的正则表达式中被转义的字符有：. \ | ( ) [ ] { } ^ $ <em> + ?．被转义的字符已经有特殊的意义，如点号 . 表示任意字符；方括号表示选择方括号中的任意一个（如[a-z] 表示任意一个小写字符）；^ 放在表达式开始出表示匹配文本开始位置，放在方括号内开始处表示非方括号内的任一字符；大括号表示前面的字符或表达式的重复次数；| 表示可选项，即 | 前后的表达式任选一个。<br> ３．如果要在正则表达式中表示元字符本身，比如我就要在文本中查找问号‘?’， 那么就要使用引用符号（或称换码符号），一般是反斜杠 ‘\‘。需要注意的是，在R语言中得用两个反斜杠即 ‘\\’，如要匹配括号就要写成 ’\\(\\)‘<br> ４．不同语言或应用程序（事实上很多规则都通用）定义了一些特殊的元字符用于表示某类字符，如 \d 表示数字0-9， \D 表示非数字，\s 表示空白字符（包括空格、制表符、换行符等），\S 表示非空白字符，\w 表示字（字母和数字），\W 表示非字，\&lt; 和 > 分别表示以空白字符开始和结束的文本。<br>5． 正则表达式符号运算顺序：圆括号括起来的表达式最优先，然后是表示重复次数的操作（即：</em> + {} ），接下来是连接运算（其实就是几个字符放在一起，如abc），最后是表示可选项的运算（|）</p>
+<h2 id="字符数统计和字符翻译"><a href="#字符数统计和字符翻译" class="headerlink" title="字符数统计和字符翻译"></a>字符数统计和字符翻译</h2><p>nchar这个函数简单，统计向量中每个元素的字符个数，注意这个函数和length函数的差别：nchar是向量元素的字符个数，而length是向量长度（向量元素的个数)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; x &lt;- c(&quot;Hellow&quot;, &quot;World&quot;, &quot;!&quot;) </div><div class="line">&gt; nchar(x) </div><div class="line">[1] 6 5 1 </div><div class="line">&gt; length(&apos;&apos;); nchar(&apos;&apos;) </div><div class="line">[1] 1 </div><div class="line">[1] 0</div></pre></td></tr></table></figure></p>
 <p>另外三个函数用法也很简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; DNA &lt;- &quot;AtGCtttACC&quot; </div><div class="line">&gt; tolower(DNA) </div><div class="line">[1] &quot;atgctttacc&quot; </div><div class="line">&gt; toupper(DNA) </div><div class="line">[1] &quot;ATGCTTTACC&quot; </div><div class="line">&gt; chartr(&quot;Tt&quot;, &quot;Uu&quot;, DNA) </div><div class="line">[1] &quot;AuGCuuuACC&quot; </div><div class="line">&gt; chartr(&quot;Tt&quot;, &quot;UU&quot;, DNA) </div><div class="line">[1] &quot;AUGCUUUACC&quot;</div></pre></td></tr></table></figure></p>
 <h2 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h2><p>paste应该是R中最常用字符串函数了，也是R字符串处理函数里面非常纯的不使用正则表达式的函数（因为用不着）。它相当于其他语言的strjoin，但是功能更强大。它把向量连成字串向量，其他类型的数据会转成向量，但不一定是你要的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt; paste(&quot;CK&quot;, 1:6, sep=&quot;&quot;) </div><div class="line">[1] &quot;CK1&quot; &quot;CK2&quot; &quot;CK3&quot; &quot;CK4&quot; &quot;CK5&quot; &quot;CK6&quot; </div><div class="line">&gt; x &lt;- list(a=&quot;aaa&quot;, b=&quot;bbb&quot;, c=&quot;ccc&quot;) </div><div class="line">&gt; y &lt;- list(d=1, e=2) </div><div class="line">&gt; paste(x, y, sep=&quot;-&quot;)     #较短的向量被循环使用 </div><div class="line">[1] &quot;aaa-1&quot; &quot;bbb-2&quot; &quot;ccc-1&quot; </div><div class="line">&gt; z &lt;- list(x,y) </div><div class="line">&gt; paste(&quot;T&quot;, z, sep=&quot;:&quot;)   #这样的结果不知合不合用 </div><div class="line">[1] &quot;T:list(a = \&quot;aaa\&quot;, b = \&quot;bbb\&quot;, c = \&quot;ccc\&quot;)&quot; </div><div class="line">[2] &quot;T:list(d = 1, e = 2)&quot;</div></pre></td></tr></table></figure></p>
 <p>paste函数还有一个用法，设置collapse参数，连成一个字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; paste(x, y, sep=&quot;-&quot;, collapse=&apos;; &apos;) </div><div class="line">[1] &quot;aaa-1; bbb-2; ccc-1&quot; </div><div class="line">&gt; paste(x, collapse=&apos;; &apos;) </div><div class="line">[1] &quot;aaa; bbb; ccc&quot;</div></pre></td></tr></table></figure></p>
@@ -390,7 +383,7 @@
 <p>因为x的向量长度为1，所以substr获得的结果只有1个字串，即第2和第3个参数向量只用了第一个组合：起始位置2，终止位置4。</p>
 <p>而substring的语句三个参数中最长的向量为c(4,5,8)，执行时按短向量循环使用的规则第一个参数事实上就是c(x,x,x)，第二个参数就成了c(2,4,2)，最终截取的字串起始位置组合为：2-4, 4-5和2-8。</p>
 <p>请按照这样的处理规则解释下面语句运行的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; x &lt;- c(&quot;123456789&quot;, &quot;abcdefghijklmnopq&quot;) </div><div class="line">&gt; substr(x, c(2,4), c(4,5,8)) </div><div class="line">[1] &quot;234&quot; &quot;de&quot;  </div><div class="line">&gt; substring(x, c(2,4), c(4,5,8)) </div><div class="line">[1] &quot;234&quot;     &quot;de&quot;      &quot;2345678&quot;</div></pre></td></tr></table></figure></p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>比如strtrim、strwrap、charmatch、match和pmatch等，甚至是 %in% 运算符都是可以使用的。R的在线帮助很全，自己看吧，就当学习英文．</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>比如strtrim、strwrap、charmatch、match和pmatch等，甚至是 %in% 运算符都是可以使用的．R的在线帮助很全，自己看吧，就当学习英文．</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="http://developer.51cto.com/art/201305/393692.htm" target="_blank" rel="external">R语言进阶之2：文本（字符串）处理与正则表达式</a></li>
 </ul>
