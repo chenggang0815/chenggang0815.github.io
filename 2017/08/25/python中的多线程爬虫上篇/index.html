@@ -1,0 +1,819 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
+线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中的多线程爬虫 上篇">
+<meta property="og:url" content="http://yoursite.com/2017/08/25/python中的多线程爬虫上篇/index.html">
+<meta property="og:site_name" content="Cheng Gang’s Notes">
+<meta property="og:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
+线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta property="og:image" content="http://or0zpjxns.bkt.clouddn.com/0825.jpeg">
+<meta property="og:updated_time" content="2017-08-25T15:02:50.477Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python中的多线程爬虫 上篇">
+<meta name="twitter:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
+线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta name="twitter:image" content="http://or0zpjxns.bkt.clouddn.com/0825.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/25/python中的多线程爬虫上篇/"/>
+
+
+
+
+
+  <title> python中的多线程爬虫 上篇 | Cheng Gang’s Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cheng Gang’s Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep calm and do your research</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/25/python中的多线程爬虫上篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程刚">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oncnk7jzw.bkt.clouddn.com/webwxgetmsgimg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cheng Gang’s Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python中的多线程爬虫 上篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T22:51:18+08:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。<br><img src="http://or0zpjxns.bkt.clouddn.com/0825.jpeg" alt=""></p>
+<h3 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h3><p>进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你如果登录了多个QQ，那就相当于开启了多个进程。下面的这篇文章很形象生动得解释了线程和进程的区别：</p>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="external">进程与线程的一个简单解释</a></li>
+</ul>
+<h3 id="计算密集型与IO密集型"><a href="#计算密集型与IO密集型" class="headerlink" title="计算密集型与IO密集型"></a>计算密集型与IO密集型</h3><p>我们可以把计算机要执行的任务分为计算密集型和IO密集型，那么它们分别代表什么意思呢？</p>
+<blockquote>
+<p>计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。计算密集型任务由于主要消耗CPU资源，因此，代码运行效率至关重要。Python这样的脚本语言运行效率很低，完全不适合计算密集型任务。对于计算密集型任务，最好用C语言编写。</p>
+<p>第二种任务的类型是IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。常见的大部分任务都是IO密集型任务，比如Web应用。IO密集型任务执行期间，99%的时间都花在IO上，花在CPU上的时间很少，因此，用运行速度极快的c语言替换用python这样运行速度极低的脚本语言，完全无法提升运行效率。对于IO密集型任务，最合适的语言就是开发效率最高（代码量最少）的语言，脚本语言是首选，C语言最差。</p>
+</blockquote>
+<p>从上面这段话我们可以看出来，计算密集型，顾名思义，需要消耗大量CPU资源，并且python这样的脚本语言在执行计算密集型任务时并不占优势；而IO密集型任务，可以大意理解为文件写入（Input）/写出（Output），这类任务不怎么消耗CPU资源。那么这两个类型的任务和我们的多线程爬虫到底有什么关系呢？下面就来讲一讲python中的多线程。</p>
+<h3 id="python中的多线程"><a href="#python中的多线程" class="headerlink" title="python中的多线程"></a>python中的多线程</h3><p>我看到过很多次诸如“python下的多线程是鸡肋，推荐使用多进程”的话，这句话只能说是半对，为什么呢？</p>
+<p>那是因为在python中存在一种叫做GIL（Global Interpreter Lock）全局解释器锁的东西，这玩意儿是python设计之初的考虑，为了数据安全所做的决定。在python的多线程中，运行情况是这样子的：</p>
+<p>1.获取GIL</p>
+<p>2.执行代码直到sleep或者是python虚拟机将其挂起。</p>
+<p>3.释放GIL</p>
+<p><strong>可见，某个线程想要执行，必须先拿到GIL，我们可以把GIL看作是“通行证”，并且在一个python进程中，GIL只有一个。拿不到通行证的线程，就不允许进入CPU执行</strong></p>
+<p>而每次释放GIL锁，线程进行锁竞争、切换线程，会消耗资源。<strong>并且由于GIL锁存在，python里一个进程永远只能同时执行一个线程(拿到GIL的线程才能执行)</strong> ，这就是为什么在多核CPU上，python的多线程效率并不高。这是python中多线程不如其他语言效率高的原因，但是！但是如果对于IO密集型任务而言，多线程能够有效的提高效率（单线程下有IO操作会进行IO等待，造成不必要的时间浪费，而开启多线程能在线程A等待时，自动切换到线程B，可以不浪费CPU的资源，从而能提升程序执行效率）。</p>
+<h3 id="python中的多线程编程"><a href="#python中的多线程编程" class="headerlink" title="python中的多线程编程"></a>python中的多线程编程</h3><p>在python有thread和threading这两个模块可以用于多线程编程，但是我们一般只使用threading模块，这是因为threadin模块不仅覆盖了thread的所有功能，还具备一些thread不具备的高级功能。比如：thread模块不支持守护线程，当主线程退出时，所有的子线程不论它们是否还在工作，都会被强行退出。你可能会疑惑什么是守护线程，什么又是主线程。主线程是用来区别于我们建立的子线程的，即如果我们没有使用多线程，那么程序中唯一的线程就是主线程。守护线程是属于子线程的一类，如果你设置某个线程为守护线程，就表示这个线程不是重要的，在子线程结束的时候，不用等待这个线程完成。下面主要来讲一下threading模块，它不仅提供了Thread类，还提供了各种非常好的同步机制。</p>
+<p>Thread类的主要函数有：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">start() 开始线程的执行</div><div class="line">run() 定义线程的功能的函数（一般会被子类重写！）</div><div class="line">join(timeout=<span class="keyword">None</span>) 程序挂起，直到线程结束，如果给了timeout，则最多阻塞timeout秒</div><div class="line">getName() 返回线程的名字</div><div class="line">setName(name) 设置线程的名字</div><div class="line">setDaemon(<span class="keyword">True</span>) 设置守护线程，一定要在start()函数前调用</div></pre></td></tr></table></figure>
+<p>threading的Thread类是我们主要的运行对象，使用它我们主要有三种方法来创建线程：</p>
+<ul>
+<li>创建一个Thread的实例，传给它一个函数；</li>
+<li>创建一个Thread的实例，传递给它一个可调用的类对象</li>
+<li>从Thread派生出一个子类，创建一个这个子类的实例</li>
+</ul>
+<p><strong>第一种方法，我们先创建一个Thread实例</strong>，再传给它一个函数。（ps：需要有python中的面向对象知识）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep,ctime</div><div class="line"><span class="keyword">import</span> threading</div><div class="line"></div><div class="line">loops=[<span class="number">4</span>,<span class="number">2</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span><span class="params">(nloop,nsec)</span>:</span></div><div class="line">    print(<span class="string">'start loop '</span>,nloop,<span class="string">'at:'</span>,ctime())</div><div class="line">    sleep(nsec)</div><div class="line">    print(<span class="string">'loop'</span>,nloop,<span class="string">'done at:'</span>,ctime())</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'starting at:'</span>,ctime())</div><div class="line">    threads=[]</div><div class="line">    nloops=range(len(loops))</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        t=threading.Thread(target=loop,args=(i,loops[i]))</div><div class="line">        threads.append(t)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].start()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].join()</div><div class="line"></div><div class="line">    print(<span class="string">'all Done at:'</span>,ctime())</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p>在上面的例子中，我们初始化了一个Thread对象，把函数及其参数传进去。在线程开始执行的时候，这个函数会被执行。在所有的线程都创建了之后，再一起调用start()函数。再简单的对每个线程调用join()函数，它会等到线程结束或者在超出timeout参数的时候。join()的另外一个好处是它可以完全不用调用，一旦线程启动后，就会一直运行，直到线程的函数结束。</p>
+<p><strong>第二种方法 试试创建一个Thread的实例，并且传给它一个可调用的类对象</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> threading</div><div class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep,ctime</div><div class="line"></div><div class="line">loops=[<span class="number">4</span>,<span class="number">2</span>]</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadFunc</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,func,args,name=<span class="string">''</span>)</span>:</span></div><div class="line">        self.name=name</div><div class="line">        self.func=func</div><div class="line">        self.args=args</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        self.func(*self.args)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span><span class="params">(nloop,nsec)</span>:</span></div><div class="line">    print(<span class="string">'start loop '</span>, nloop, <span class="string">'at:'</span>, ctime())</div><div class="line">    sleep(nsec)</div><div class="line">    print(<span class="string">'loop'</span>, nloop, <span class="string">'done at:'</span>, ctime())</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'starting at:'</span>,ctime())</div><div class="line">    threads=[]</div><div class="line">    nloops=range(len(loops))</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        t= threading.Thread(target=ThreadFunc(loop,(i,loops[i]),loop.__name__))</div><div class="line">        threads.append(t)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].start()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].join()</div><div class="line"></div><div class="line">    print(<span class="string">'all Done at:'</span>,ctime())</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p>相对于一个或几个函数来说，由于类对象里可以使用类的强大功能，这种方法更为灵活。我们实例化了两个</p>
+<p>对象，我们增加了一个ThreadFunc类，目的是使它在调用什么函数方面尽量地通用，并不局限于那个loop()对象。因此，我们是传了一个可调用的类（的实例），而不是仅传一个函数，这样做更有面向对象的概念。</p>
+<p><strong>第三种方法 从Thread派生出一个子类，创建一个这个子类的实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> threading</div><div class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep,ctime</div><div class="line"></div><div class="line">loops=[<span class="number">2</span>,<span class="number">4</span>]</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(threading.Thread)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,func,args,name=<span class="string">''</span>)</span>:</span></div><div class="line">        threading.Thread.__init__(self)</div><div class="line">        self.name=name</div><div class="line">        self.func=func</div><div class="line">        self.args=args</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        self.func(*self.args)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span><span class="params">(nloop,nsec)</span>:</span></div><div class="line">    print(<span class="string">'start loop'</span>,nloop,<span class="string">'at:'</span>,ctime())</div><div class="line">    sleep(nsec)</div><div class="line">    print(<span class="string">'loop'</span>,nloop,<span class="string">'done at'</span>,ctime())</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'starting at:'</span>,ctime())</div><div class="line">    threads=[]</div><div class="line">    nloops=range(len(loops))</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        t=MyThread(loop,(i,loops[i]),loop.__name__)</div><div class="line">        threads.append(t)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].start()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nloops:</div><div class="line">        threads[i].join()</div><div class="line"></div><div class="line">    print(<span class="string">'all Done at:'</span>,ctime())</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<h3 id="不得不说的queue模块"><a href="#不得不说的queue模块" class="headerlink" title="不得不说的queue模块"></a>不得不说的queue模块</h3><p>上面介绍了创建线程的方式，可这与queue又有什么关系呢？它的作用就是用来提供线程同步机制的！！！</p>
+<p>这是出于数据的安全性来考虑的，因为不同的线程共享数据，可以会造成数据不同步的惨案发生。而队列先进先出的特性使得线程在对数据进行操作的时候确保数据不会被反复修改。可以把任何数据的操作分解成以下两个操作，数据的放入以及数据的拿出，这两个步骤是完全独立的。而在我们的爬虫中，多个线程分别从queue中将数据取出，可以保证数据的安全性。下面来举个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> queue</div><div class="line">myqueue = queue.Queue(maxsize = <span class="number">10</span>) <span class="comment">#创建一个大小为10的队列</span></div><div class="line">myqueue.put(<span class="number">1</span>)<span class="comment">#将一个值放入队列</span></div><div class="line">a=myqueue.get()<span class="comment">#将值从队列取出</span></div><div class="line"><span class="comment">#以下是我们在多线程爬虫中需要用到的一些方法</span></div><div class="line">queue.task_done() 在完成一项工作之后，Queue.task_done()函数向任务已经完成的队列发送一个信号</div><div class="line">queue.join() 实际上意味着等到队列为空，再执行别的操作</div></pre></td></tr></table></figure>
+<h3 id="多线程爬虫"><a href="#多线程爬虫" class="headerlink" title="多线程爬虫"></a>多线程爬虫</h3><p>请听下回分解~</p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><ul>
+<li><p>异步IO</p>
+<blockquote>
+<p>考虑到CPU和IO之间巨大的速度差异，一个任务在执行的过程中大部分时间都在等待IO操作，单进程单线程模型会导致别的任务无法并行执行，因此，我们才需要多进程模型或者多线程模型来支持多任务并发执行。</p>
+<p>现代操作系统对IO操作已经做了巨大的改进，最大的特点就是支持异步IO。如果充分利用操作系统提供的异步IO支持，就可以用单进程单线程模型来执行多任务，这种全新的模型称为事件驱动模型，Nginx就是支持异步IO的Web服务器，它在单核CPU上采用单进程模型就可以高效地支持多任务。在多核CPU上，可以运行多个进程（数量与CPU核心数相同），充分利用多核CPU。由于系统总的进程数量十分有限，因此操作系统调度非常高效。用异步IO编程模型来实现多任务是一个主要的趋势。 </p>
+</blockquote>
+</li>
+<li><p>python下想要充分利用多核，就用多进程</p>
+<p>​</p>
+<blockquote>
+<p>原因是：每个进程有各自独立的GIL，互不干扰，这样就可以真正意义上的并行执行，所以在python中，多进程的执行效率优于多线程(仅仅针对多核CPU而言)。</p>
+<p><strong>所以我们能够得出结论：多核下，想做并行提升效率，比较通用的方法是使用多进程，能够有效提高执行效率</strong>。</p>
+</blockquote>
+</li>
+<li><p>线程同步</p>
+<blockquote>
+<p>有过相关线程编程经验的人都知道一般当<strong>多个线程共用一些数据的时候，我们就需要对这些线程进行同步</strong>，避免多个进程同时修改这些共用数据的时候产生错误。试想：一个线程的工作是将一个数加一，另一个线程的工作是将这个数减一，假设这个数初始值是1，那么当这两个线程同时要对这个数操作，结果呢？结果是不可预知的。因为他们对这个数的操作产生了冲突，而计算机是没法避免这种冲突的。所以我们要在写程序的时候就解决这种可能的错误，我们该怎么办呢？</p>
+<p>上锁！所谓上锁，就是当一个线程要操作这个数据之前，把通向这个数据的“门”锁上(也就是禁止了其他语句访问这个数据)，然后执行该执行的操作，当这些操作完成了，离开的时候把这个“门”再打开。当门锁上的时候，假如别的线程要操作这个数据，它就会被告知，这门里有人了，你先等着，直到其他线程操作完了，门再次打开以后，它才会继续原本的操作。</p>
+<p><strong>Python的Queue库，提供了线程同步机制</strong>(这个机制就类似上面说的上锁的这个流程)，我们可以直接使用queue轻松实现多线程同步。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="http://blog.csdn.net/u013787595/article/details/49446291" target="_blank" rel="external">Python爬虫:初探多线程爬虫</a></li>
+<li><a href="http://cuiqingcai.com/3325.html" target="_blank" rel="external">Python爬虫进阶五之多线程的用法</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/16/R语言中的文本挖掘/" rel="next" title="Ｒ语言中的文本分析">
+                <i class="fa fa-chevron-left"></i> Ｒ语言中的文本分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oncnk7jzw.bkt.clouddn.com/webwxgetmsgimg.jpeg"
+               alt="程刚" />
+          <p class="site-author-name" itemprop="name">程刚</p>
+           
+              <p class="site-description motion-element" itemprop="description">壮士断腕</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chenggang0815" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://m.weibo.cn/u/5018791963" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/cheng-gang-35-54" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程与进程"><span class="nav-number">1.</span> <span class="nav-text">线程与进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算密集型与IO密集型"><span class="nav-number">2.</span> <span class="nav-text">计算密集型与IO密集型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python中的多线程"><span class="nav-number">3.</span> <span class="nav-text">python中的多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python中的多线程编程"><span class="nav-number">4.</span> <span class="nav-text">python中的多线程编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不得不说的queue模块"><span class="nav-number">5.</span> <span class="nav-text">不得不说的queue模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程爬虫"><span class="nav-number">6.</span> <span class="nav-text">多线程爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">8.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">程刚</span>
+</div>
+
+
+<div class="powered-by">
+  醉后不知天在水
+</div>
+
+<div class="theme-info">
+  满船清梦压星河
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
