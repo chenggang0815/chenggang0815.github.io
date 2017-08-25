@@ -87,20 +87,17 @@
 
 
 
-<meta name="description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
-线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta name="description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写下篇，作为多线程的告别篇。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python中的多线程爬虫 上篇">
 <meta property="og:url" content="http://yoursite.com/2017/08/25/python中的多线程爬虫上篇/index.html">
 <meta property="og:site_name" content="Cheng Gang’s Notes">
-<meta property="og:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
-线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta property="og:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写下篇，作为多线程的告别篇。">
 <meta property="og:image" content="http://or0zpjxns.bkt.clouddn.com/0825.jpeg">
-<meta property="og:updated_time" content="2017-08-25T15:02:50.477Z">
+<meta property="og:updated_time" content="2017-08-25T15:15:59.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的多线程爬虫 上篇">
-<meta name="twitter:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。
-线程与进程进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你">
+<meta name="twitter:description" content="最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写下篇，作为多线程的告别篇。">
 <meta name="twitter:image" content="http://or0zpjxns.bkt.clouddn.com/0825.jpeg">
 
 
@@ -358,7 +355,7 @@
       
 
       
-        <p>最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写一篇（二），作为多线程的告别篇。<br><img src="http://or0zpjxns.bkt.clouddn.com/0825.jpeg" alt=""></p>
+        <p><img src="http://or0zpjxns.bkt.clouddn.com/0825.jpeg" alt=""><br>最近两周一直在折腾python的多线程爬虫问题，其实也是为了学习python中的面向对象编程以及多线程编程，好在有所收获。那么就来总结一下这两周的知识，等我完全吃透了多线程爬虫，再来写下篇，作为多线程的告别篇。<br><a id="more"></a></p>
 <h3 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h3><p>进程是什么？可以理解为当你打开一个QQ时，系统就开启了一个进程，而线程永远是包含在进程当中的。比如你用QQ可以同时和多个人聊天，那么就是QQ这个进程同时在执行多个线程，而你如果登录了多个QQ，那就相当于开启了多个进程。下面的这篇文章很形象生动得解释了线程和进程的区别：</p>
 <ul>
 <li><a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="external">进程与线程的一个简单解释</a></li>
